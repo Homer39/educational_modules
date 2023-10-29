@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Modules(models.Model):
+class Module(models.Model):
     "Модель описывающая модули"
     number = models.IntegerField(verbose_name='Порядковый номер')
     name = models.CharField(max_length=50, verbose_name='Название')
