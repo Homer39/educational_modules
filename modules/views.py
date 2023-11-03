@@ -18,6 +18,7 @@ class ModuleCreateAPIView(generics.CreateAPIView):
 class ModuleListAPIView(generics.ListAPIView):
     "Контролер для просмотра списка модулей"
     serializer_class = ModuleSerializer
+    queryset = Module.objects.all()
 
 
 class ModuleRetrieveAPIView(generics.RetrieveAPIView):
@@ -34,7 +35,5 @@ class ModuleUpdateAPIView(generics.UpdateAPIView):
 
 
 class ModuleDestroyAPIView(generics.DestroyAPIView):
+    queryset = Module.objects.all()
     serializer_class = ModuleSerializer
-
-    def get_queryset(self):
-        return Module.objects.filter(owner=self.request.user)
