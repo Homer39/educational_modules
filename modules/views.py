@@ -34,6 +34,7 @@ class ModuleRetrieveAPIView(generics.RetrieveAPIView):
 
 
 class ModuleUpdateAPIView(generics.UpdateAPIView):
+    """Контроллер для обновления модуля"""
     serializer_class = ModuleSerializer
     permission_classes = [IsOwner]
 
@@ -42,6 +43,7 @@ class ModuleUpdateAPIView(generics.UpdateAPIView):
 
 
 class ModuleDestroyAPIView(generics.DestroyAPIView):
+    """Контроллер для удаления модуля"""
     queryset = Module.objects.all()
     serializer_class = ModuleSerializer
     permission_classes = [IsOwner]
