@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'drf_yasg',
+
+    'corsheaders',
 
     'users',
     'modules'
@@ -145,3 +148,6 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1)
 }
 
+# CORS
+CORS_ALLOWED_ORIGINS = ['http://localhost:5001']
+CORS_ALLOWED_ALL_ORIGINS = False
