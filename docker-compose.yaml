@@ -1,0 +1,39 @@
+version: "3.10"
+
+services: # Подключаемые сервисы
+
+
+  # База данных
+  db:
+    image: postgres # Название образа базы данных
+    env_file: # Файл с данными закрытый
+      - .env
+    environment: # Файл с данными публичный
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - pg_data:/var/lib/postgresql/data/pgdata
+    ports: # Порт БД
+      - '5434:5432'
+    healthcheck: # Проверка подключения БД
+      test: [ "CMD-SHELL", "pg_isready -d postgres -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app: # Приложение
+    build: . # Собираем образ из текущей директории
+    tty: true # Дает возможность использовать команды терминала
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on: # Пока не собирется БД, не будет запускаться приложение
+      db:
+        condition: service_healthy
+    env_file: # Файл с данными закрытый
+      - .env
+
+
+volumes:
+  pg_data:
